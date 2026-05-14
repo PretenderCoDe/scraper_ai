@@ -43,3 +43,8 @@ The script prints JSON with `pageTitle`, `pageDescription`, and `tableOfContents
 - Keep request volume low and avoid crawling.
 - Check the site robots.txt and terms of use before automating.
 - Store only the fields you need and avoid user data.
+
+## Why `npm run scrape`
+
+- `npm run scrape` or `node scraper.js`
+- `npm run scrape` preset to run javascript file -> run `node scraper.js`
