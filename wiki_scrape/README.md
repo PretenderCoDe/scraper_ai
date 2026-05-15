@@ -48,3 +48,61 @@ The script prints JSON with `pageTitle`, `pageDescription`, and `tableOfContents
 
 - `npm run scrape` or `node scraper.js`
 - `npm run scrape` preset to run javascript file -> run `node scraper.js`
+
+## Running with TypeScript
+
+This project can be run two ways when using TypeScript code in `src/`:
+
+- Run directly with `tsx` (fast for development, no build step).
+- Compile with `tsc` and run the emitted JavaScript (recommended for CI/production).
+
+Recommended setup (from the `wiki_scrape` folder):
+
+```bash
+npm install --save-dev tsx typescript @types/node
+npx playwright install
+```
+
+Run with `tsx` (dev, no build):
+
+```bash
+npx tsx src/scraper.ts
+```
+
+Run by compiling with `tsc` (build then run):
+
+```bash
+npx tsc
+node dist/scraper.js
+```
+
+Suggested `package.json` scripts to add:
+
+```json
+"scripts": {
+	"build": "tsc",
+	"scrape": "npm run build && node dist/scraper.js",
+	"dev:scrape": "tsx src/scraper.ts"
+}
+```
+
+Environment variable examples:
+
+- Bash / WSL:
+
+```bash
+HEADLESS=0 npx tsx src/scraper.ts
+```
+
+TypeScript checks and troubleshooting
+
+- Run a type-only check without emitting JS:
+
+```bash
+npx tsc --noEmit
+```
+
+- If you installed `@types/node` but still see `process` or other Node globals as unknown, ensure `tsconfig.json` includes `"types": ["node"]` (or remove the `types` field to auto-include).
+- If VS Code shows stale problems after changing types, run: **TypeScript: Restart TS Server** from the Command Palette or reload the window.
+
+See [wiki_scrape/src/scraper.ts](src/scraper.ts) for the TypeScript source and [wiki_scrape/tsconfig.json](tsconfig.json) for compiler settings.
